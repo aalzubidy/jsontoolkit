@@ -6,6 +6,7 @@ const expressSanitizer = require('express-sanitizer');
 const path = require('path');
 
 // Import routes
+const indexRoutes = require('./routes/index');
 // const applicantsRoutes = require('./routes/applicants');
 // const programsRoutes = require('./routes/programs');
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 // User Routes
-// app.use(applicantsRoutes);
+app.use(indexRoutes);
 
 // Programs Routes
 // app.use(programsRoutes);

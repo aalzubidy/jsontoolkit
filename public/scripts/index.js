@@ -25,7 +25,7 @@ app.controller("jsonPathController", function ($scope, $http) {
         if (editorInputJSONPath.session.$annotations.length > 0) {
             editorOutputJSONPath.setValue(JSON.stringify(editorInputJSONPath.session.$annotations));
         } else {
-            editorOutputJSONPath.setValue('{}');   
+            editorOutputJSONPath.setValue('{}');
         }
     });
 
@@ -48,10 +48,10 @@ app.controller("jsonPathController", function ($scope, $http) {
         });
     }
 
-    $scope.setAutoRun = function setAutoRun(){
-        if($scope.autoRunLStatus==='Auto Run Off'){
+    $scope.setAutoRun = function setAutoRun() {
+        if ($scope.autoRunLStatus === 'Auto Run Off') {
             $scope.autoRunLStatus = 'Auto Run On';
-            $('#jsonP').on('input', ()=>{
+            $('#jsonP').on('input', () => {
                 $scope.evaluateJSONPath();
             })
         } else {
@@ -60,7 +60,7 @@ app.controller("jsonPathController", function ($scope, $http) {
         }
     }
 
-    $scope.loadSavedPath = function loadSavedPath(p, i, o){
+    $scope.loadSavedPath = function loadSavedPath(p, i, o) {
         $scope.jsonP = p;
         editorInputJSONPath.setValue(i, -1);
         editorOutputJSONPath.setValue(o, -1);

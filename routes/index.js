@@ -1,6 +1,6 @@
 // Require
 const express = require('express');
-const fs = require('fs-extra');
+// const fs = require('fs-extra');
 // const config = fs.readJSONSync('./config.json');
 // const {
 //   MongoClient,
@@ -20,8 +20,8 @@ const router = express.Router();
 
 // Show programs page
 router.get('/test', (req, res) => {
-    res.send('hello from test');
-    //   res.render('programs/programs');
+  res.send('hello from test');
+  //   res.render('programs/programs');
 });
 
 // router.get('/programs/list', (req, res) => {

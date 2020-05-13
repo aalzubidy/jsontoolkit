@@ -21,7 +21,7 @@ app.use(expressSanitizer());
 
 // Index Route
 app.get('/', (req, res) => {
-    res.render('index');
+  res.render('index');
 });
 
 // User Routes
@@ -32,13 +32,13 @@ app.use(indexRoutes);
 
 // All other routes
 app.get('*', function (req, res) {
-    res.render('notFound');
+  res.render('notFound');
 });
 
 app.post('*', function (req, res) {
-    res.render('notFound');
+  res.render('notFound');
 });
 
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+  console.log(`Server started on port ${port}`);
 });

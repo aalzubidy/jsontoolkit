@@ -6,6 +6,8 @@ var urlPrefix = window.location.protocol + '//' + window.location.hostname + ':'
 var app = angular.module('jsonToolkitApp', []);
 
 app.controller("jsonPathController", function ($scope, $http) {
+    $scope.autoRunLStatus = 'Auto Run Off';
+
     $scope.test = 'JSON Tools Plus!';
     $scope.savedPaths = [];
 
@@ -27,6 +29,7 @@ app.controller("jsonPathController", function ($scope, $http) {
         }
     });
 
+
     $scope.evaluateJSONPath = function evaluateJSONPath() {
         const input = JSON.parse(editorInputJSONPath.session.getValue());
         const jsonP = $scope.jsonP;
@@ -43,6 +46,24 @@ app.controller("jsonPathController", function ($scope, $http) {
             input: editorInputJSONPath.session.getValue(),
             output: editorOutputJSONPath.session.getValue()
         });
+    }
+
+    $scope.setAutoRun = function setAutoRun(){
+        if($scope.autoRunLStatus==='Auto Run Off'){
+            $scope.autoRunLStatus = 'Auto Run On';
+            $('#jsonP').on('input', ()=>{
+                $scope.evaluateJSONPath();
+            })
+        } else {
+            $('#jsonP').off();
+            $scope.autoRunLStatus = 'Auto Run Off';
+        }
+    }
+
+    $scope.loadSavedPath = function loadSavedPath(p, i, o){
+        $scope.jsonP = p;
+        editorInputJSONPath.setValue(i, -1);
+        editorOutputJSONPath.setValue(o, -1);
     }
 
     $scope.switchOutputInput = function switchOutputInput() {

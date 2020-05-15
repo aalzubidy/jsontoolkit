@@ -1,21 +1,21 @@
 #editorInputJSONPath {
     width: 100%;
-    height: 300px;
+    height: 600px;
 }
 
 #editorOutputJSONPath {
     width: 100%;
-    height: 300px;
+    height: 600px;
 }
 
 #editorInputJSONObject {
     width: 300px;
-    height: 300px;
+    height: 600px;
 }
 
 #editorInputJSONSchema {
     width: 300px;
-    height: 300px;
+    height: 600px;
 }
 
 nav a {
@@ -28,3 +28,10 @@ nav a {
     border-radius: 6px;
 }
 
+.jsonPRow{
+    margin: 1% 6%;
+}
+
+.jsonPEditorsRow{
+    margin: 0% 1%;
+}

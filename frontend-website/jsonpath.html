@@ -1,17 +1,15 @@
 <div class="container-fixed" ng-controller="jsonPathController">
-    <br>
-    <div class="row justify-content-center">
+    <div class="row jsonPRow justify-content-center">
         <div class="col">
             <input type="text" class="form-control" id="jsonP" ng-model="jsonP" placeholder="Enter json path" data-toggle="tooltip" title="Enter json path e.g. $.people[1].name">
         </div>
-        <div class="col-lg-2 col-md-4 col-sm-6">
+        <div>
             <button class="btn btn-outline-primary" ng-click="evaluateJSONPath()">Run</button>
             <button ng-class="{'btn btn-outline-success': autoRunLStatus === 'Auto Run On', 'btn btn-outline-danger': autoRunLStatus === 'Auto Run Off'}" ng-click="setAutoRun()">{{autoRunLStatus}}</button>
         </div>
     </div>
 
-    <br>
-    <div class="row">
+    <div class="row jsonPEditorsRow">
         <div class="col">
             <div id="editorInputJSONPath">{}</div>
         </div>

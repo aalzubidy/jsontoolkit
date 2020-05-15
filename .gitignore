@@ -1,6 +1,6 @@
-.nyc_output
-coverage
-node_modules
-npm-debug.log
-test/**/*_Results.txt
-.DS_Store
+backend-api/.nyc_output
+backend-api/coverage
+backend-api/node_modules
+backend-api/npm-debug.log
+backend-api/test/**/*_Results.txt
+backend-api/.DS_Store

@@ -35,3 +35,11 @@ nav a {
 .jsonPEditorsRow{
     margin: 0% 1%;
 }
+
+.saveUseBtnRow{
+    margin: 1%;
+}
+
+.saveUseBtnRow button{
+    margin: 0 6px;
+}

@@ -5,7 +5,7 @@
         </div>
         <div>
             <button class="btn btn-outline-primary" ng-click="evaluateJSONPath()">Run</button>
-            <button ng-class="{'btn btn-outline-success': autoRunLStatus === 'Auto Run On', 'btn btn-outline-danger': autoRunLStatus === 'Auto Run Off'}" ng-click="setAutoRun()">{{autoRunLStatus}}</button>
+            <button ng-class="{'btn btn-outline-success': autoRunLStatus === 'On', 'btn btn-outline-danger': autoRunLStatus === 'Off'}" ng-click="setAutoRun()">Auto Run: {{autoRunLStatus}}</button>
         </div>
     </div>
 
@@ -17,14 +17,12 @@
             <div id="editorOutputJSONPath">{}</div>
         </div>
     </div>
-    <br>
 
-    <div class="row">
+    <div class="row saveUseBtnRow justify-content-end">
         <button class="btn btn-outline-primary" ng-click="savePath()">Save in Session</button>
         <button class="btn btn-outline-primary" ng-click="switchOutputInput()">Use output as input</button>
     </div>
     
-    <br>
     <div class="row">
         <h6>Saved JSON Path In This Session</h6>
         <ul>

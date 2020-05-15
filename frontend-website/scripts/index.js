@@ -30,7 +30,7 @@ app.config(function ($routeProvider) {
 })
 
 app.controller("jsonPathController", function ($scope) {
-  $scope.autoRunLStatus = 'Auto Run Off';
+  $scope.autoRunLStatus = 'Off';
 
   $scope.savedPaths = [];
 
@@ -74,14 +74,14 @@ app.controller("jsonPathController", function ($scope) {
   }
 
   $scope.setAutoRun = function setAutoRun() {
-    if ($scope.autoRunLStatus === 'Auto Run Off') {
-      $scope.autoRunLStatus = 'Auto Run On';
+    if ($scope.autoRunLStatus === 'Off') {
+      $scope.autoRunLStatus = 'On';
       $('#jsonP').on('input', () => {
         $scope.evaluateJSONPath();
       })
     } else {
       $('#jsonP').off();
-      $scope.autoRunLStatus = 'Auto Run Off';
+      $scope.autoRunLStatus = 'Off';
     }
   }
 

@@ -1,19 +1,38 @@
-<div ng-controller="jsonPathController">
-    <h1>{{test}}</h1>
-
-    <input type="text" id="jsonP" ng-model="jsonP" placeholder="Enter json path...">
-    <button ng-click="evaluateJSONPath()">Run</button>
-    <button ng-click="setAutoRun()">{{autoRunLStatus}}</button> <br>
-
-    <div id="editorInputJSONPath">{}</div>
+<div class="container-fixed" ng-controller="jsonPathController">
     <br>
-    <div id="editorOutputJSONPath">{}</div>
+    <div class="row justify-content-center">
+        <div class="col">
+            <input type="text" class="form-control" id="jsonP" ng-model="jsonP" placeholder="Enter json path" data-toggle="tooltip" title="Enter json path e.g. $.people[1].name">
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <button class="btn btn-outline-primary" ng-click="evaluateJSONPath()">Run</button>
+            <button ng-class="{'btn btn-outline-success': autoRunLStatus === 'Auto Run On', 'btn btn-outline-danger': autoRunLStatus === 'Auto Run Off'}" ng-click="setAutoRun()">{{autoRunLStatus}}</button>
+        </div>
+    </div>
 
-    <button ng-click="savePath()">Save in Session</button>
-    <button ng-click="switchOutputInput()">Use output as input</button>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div id="editorInputJSONPath">{}</div>
+        </div>
+        <div class="col">
+            <div id="editorOutputJSONPath">{}</div>
+        </div>
+    </div>
+    <br>
 
-    <h6>Saved JSON Path In This Session</h6>
-    <ul>
-        <li ng-repeat="path in savedPaths"">{{path.path}} <button ng-click="loadSavedPath(path.path, path.input, path.output)">Load</button> </li>
-    </ul>
+    <div class="row">
+        <button class="btn btn-outline-primary" ng-click="savePath()">Save in Session</button>
+        <button class="btn btn-outline-primary" ng-click="switchOutputInput()">Use output as input</button>
+    </div>
+    
+    <br>
+    <div class="row">
+        <h6>Saved JSON Path In This Session</h6>
+        <ul>
+            <li ng-repeat="path in savedPaths"">{{path.path}} <button ng-click=" loadSavedPath(path.path, path.input,
+                path.output)">Load</button> </li>
+        </ul>
+    </div>
+    
 </div>

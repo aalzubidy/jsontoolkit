@@ -3,6 +3,17 @@ const cons = require("consolidate");
 // Set the url based on the window URL and port - used across all calls
 var urlPrefix = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 
+$(document).ready(function(){
+  $('nav a').click(function(){
+    $('nav a').removeClass('active');
+    $(this).addClass('active');
+    let link=$(this).attr('href');
+    window.location.href=link;
+  });
+ });
+
+var editorFontSize = 18;
+
 var app = angular.module('jsonToolkitApp', ['ngRoute']);
 
 app.config(function ($routeProvider) {
@@ -21,18 +32,19 @@ app.config(function ($routeProvider) {
 app.controller("jsonPathController", function ($scope) {
   $scope.autoRunLStatus = 'Auto Run Off';
 
-  $scope.test = 'JSON Tools Plus!';
   $scope.savedPaths = [];
 
   // Editor settings
   var editorInputJSONPath = ace.edit("editorInputJSONPath");
   editorInputJSONPath.setTheme("ace/theme/solarized_light");
   editorInputJSONPath.session.setMode("ace/mode/json");
+  editorInputJSONPath.setFontSize(editorFontSize);
 
   // Editor settings
   var editorOutputJSONPath = ace.edit("editorOutputJSONPath");
   editorOutputJSONPath.setTheme("ace/theme/solarized_light");
   editorOutputJSONPath.session.setMode("ace/mode/json");
+  editorOutputJSONPath.setFontSize(editorFontSize);
 
   editorInputJSONPath.getSession().on('change', function () {
     if (editorInputJSONPath.session.$annotations.length > 0) {
@@ -92,11 +104,13 @@ app.controller("jsonSchemaController", function ($scope) {
   var editorInputJSONObject = ace.edit("editorInputJSONObject");
   editorInputJSONObject.setTheme("ace/theme/solarized_light");
   editorInputJSONObject.session.setMode("ace/mode/json");
+  editorInputJSONObject.setFontSize(editorFontSize);
 
   // Editor settings
   var editorInputJSONSchema = ace.edit("editorInputJSONSchema");
   editorInputJSONSchema.setTheme("ace/theme/solarized_light");
   editorInputJSONSchema.session.setMode("ace/mode/json");
+  editorInputJSONSchema.setFontSize(editorFontSize);
 
   $scope.validateJSON = function validateJSON() {
     let schema = JSON.parse(editorInputJSONSchema.session.getValue());

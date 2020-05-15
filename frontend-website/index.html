@@ -58,8 +58,13 @@
 
 <body ng-app="jsonToolkitApp">
     <section>
-        <a href="#/!">json path</a>
-        <a href="#!jsonschema">json schema</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#/!">JSON Path Evaluator <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#!jsonschema">JSON Schema Generator & Validator</a>
+                <a class="nav-item nav-link" href="#!api">APIs</a>
+              </div>
+        </nav>
         <div ng-view></div>
     </section>
 </body>

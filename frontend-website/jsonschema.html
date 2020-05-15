@@ -1,0 +1,17 @@
+<div ng-controller="jsonSchemaController">
+    <button ng-click="generateSchema()">Generate Schema from JSON</button>
+    <button ng-click="validateJSON()">Validate JSON against Schema</button>
+    
+    <br><br>
+    <h6>JSON Object</h6>
+    <div id="editorInputJSONObject">{}</div>
+    <br>
+    <h6>JSON Schema</h6>
+    <div id="editorInputJSONSchema">{}</div>
+    <br>
+
+    <h6>JSON Schema Results: {{jsonSchemaResults}}</h6>
+    <ul>
+        <li ng-repeat="jsonSchemaError in jsonSchemaErrors"">{{jsonSchemaError.dataPath}} - {{jsonSchemaError.schemaPath}} - {{jsonSchemaError.message}}</li>
+    </ul>
+</div>

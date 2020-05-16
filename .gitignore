@@ -4,3 +4,6 @@ backend-api/node_modules
 backend-api/npm-debug.log
 backend-api/test/**/*_Results.txt
 backend-api/.DS_Store
+.vscode/*
+backend-api/.vscode/*
+frontend-website/.vscode/*

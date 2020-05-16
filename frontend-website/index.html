@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON Toolkit</title>
+
+    <!-- Icon -->
+    <link rel="icon" href="img/websiteIcon.png">
+
+    <title>JSON Tools</title>
 
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -30,7 +34,8 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
     <!-- AJV -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.2/ajv.min.js" integrity="sha256-ZVmP98znALIm9fVvLIXTKpm7rfAhP85+Rp3r4DtkfYY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.2/ajv.min.js"
+        integrity="sha256-ZVmP98znALIm9fVvLIXTKpm7rfAhP85+Rp3r4DtkfYY=" crossorigin="anonymous"></script>
 
     <!-- ToJSONSchema -->
     <script src="scripts/J2S.js"></script>
@@ -59,11 +64,12 @@
 <body ng-app="jsonToolkitApp">
     <section>
         <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
-              <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#/!">JSON Path Evaluator <span class="sr-only">(current)</span></a>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#/!">JSON Path Evaluator <span
+                        class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="#!jsonschema">JSON Schema Generator & Validator</a>
                 <a class="nav-item nav-link" href="#!api">APIs</a>
-              </div>
+            </div>
         </nav>
         <div ng-view></div>
     </section>

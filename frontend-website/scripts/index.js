@@ -3,16 +3,28 @@ const cons = require("consolidate");
 // Set the url based on the window URL and port - used across all calls
 var urlPrefix = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 
-$(document).ready(function(){
-  $('nav a').click(function(){
+$(document).ready(function () {
+  $('nav a').click(function () {
     $('nav a').removeClass('active');
     $(this).addClass('active');
-    let link=$(this).attr('href');
-    window.location.href=link;
+    let link = $(this).attr('href');
+    window.location.href = link;
   });
- });
+});
 
-var editorFontSize = 18;
+var editorFontSize = 16;
+
+function downloadFile(fileData, fileName) {
+  var d = new Date();
+  var dateName = `${d.getMonth()+1}-${d.getDate()}-${d.getFullYear()}-${d.getHours()}-${d.getMinutes()}`;
+  var dataStr = "data:application/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fileData, null, 2));
+  var downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute("href", dataStr);
+  downloadAnchorNode.setAttribute("download", fileName + '-' + dateName + ".json");
+  document.body.appendChild(downloadAnchorNode); // required for firefox
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+}
 
 var app = angular.module('jsonToolkitApp', ['ngRoute']);
 
@@ -23,6 +35,9 @@ app.config(function ($routeProvider) {
     })
     .when("/jsonschema", {
       templateUrl: "jsonschema.html"
+    })
+    .when("/api", {
+      templateUrl: "api.html"
     })
     .when('/*', {
       templateUrl: "notFound.html"
@@ -66,11 +81,13 @@ app.controller("jsonPathController", function ($scope) {
   }
 
   $scope.savePath = function savePath() {
-    $scope.savedPaths.push({
-      path: $scope.jsonP,
-      input: editorInputJSONPath.session.getValue(),
-      output: editorOutputJSONPath.session.getValue()
-    });
+    if ($scope.jsonP) {
+      $scope.savedPaths.push({
+        path: $scope.jsonP,
+        input: editorInputJSONPath.session.getValue(),
+        output: editorOutputJSONPath.session.getValue()
+      });
+    }
   }
 
   $scope.setAutoRun = function setAutoRun() {
@@ -113,6 +130,7 @@ app.controller("jsonSchemaController", function ($scope) {
   editorInputJSONSchema.setFontSize(editorFontSize);
 
   $scope.validateJSON = function validateJSON() {
+    $scope.jsonSchemaErrors = [];
     let schema = JSON.parse(editorInputJSONSchema.session.getValue());
     let obj = JSON.parse(editorInputJSONObject.session.getValue());
 
@@ -130,6 +148,17 @@ app.controller("jsonSchemaController", function ($scope) {
   $scope.generateSchema = function generateSchema() {
     let obj = JSON.parse(editorInputJSONObject.session.getValue());
     editorInputJSONSchema.setValue(JSON.stringify(j2s(obj), null, 1), -1);
+  }
+
+  $scope.downloadSchema = function downloadSchema() {
+    try {
+      let schemaOutput = JSON.parse(editorInputJSONSchema.session.getValue());
+      if (Object.keys(schemaOutput).length >= 1) {
+        downloadFile(schemaOutput, 'jsonSchema');
+      }
+    } catch (error) {
+      console.log('Schema is empty or not json format');
+    }
   }
 
 });

@@ -1,8 +1,7 @@
-const cons = require("consolidate");
-
 // Set the url based on the window URL and port - used across all calls
 var urlPrefix = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 
+// Change active class in navbar
 $(document).ready(function () {
   $('nav a').click(function () {
     $('nav a').removeClass('active');
@@ -12,8 +11,14 @@ $(document).ready(function () {
   });
 });
 
+// Set font size for all editors
 var editorFontSize = 16;
 
+/**
+ * Download a file with date and json extension
+ * @param {*} fileData
+ * @param {string} fileName
+ */
 function downloadFile(fileData, fileName) {
   var d = new Date();
   var dateName = `${d.getMonth()+1}-${d.getDate()}-${d.getFullYear()}-${d.getHours()}-${d.getMinutes()}`;
@@ -26,8 +31,10 @@ function downloadFile(fileData, fileName) {
   downloadAnchorNode.remove();
 }
 
+// Start an angularjs app
 var app = angular.module('jsonToolkitApp', ['ngRoute']);
 
+// Set routes
 app.config(function ($routeProvider) {
   $routeProvider
     .when("/", {
@@ -44,23 +51,27 @@ app.config(function ($routeProvider) {
     });
 })
 
+// Controller to run and evaluate json path
 app.controller("jsonPathController", function ($scope) {
+  // Option to run the json path automatically as typing
   $scope.autoRunLStatus = 'Off';
 
+  // List of saved json paths, their input, and their output
   $scope.savedPaths = [];
 
-  // Editor settings
+  // Editor settings - Input JSON Object to run json paths
   var editorInputJSONPath = ace.edit("editorInputJSONPath");
   editorInputJSONPath.setTheme("ace/theme/solarized_light");
   editorInputJSONPath.session.setMode("ace/mode/json");
   editorInputJSONPath.setFontSize(editorFontSize);
 
-  // Editor settings
+  // Editor settings - Output for the results of json path
   var editorOutputJSONPath = ace.edit("editorOutputJSONPath");
   editorOutputJSONPath.setTheme("ace/theme/solarized_light");
   editorOutputJSONPath.session.setMode("ace/mode/json");
   editorOutputJSONPath.setFontSize(editorFontSize);
 
+  // A listner to display any erros in the input object
   editorInputJSONPath.getSession().on('change', function () {
     if (editorInputJSONPath.session.$annotations.length > 0) {
       editorOutputJSONPath.setValue(JSON.stringify(editorInputJSONPath.session.$annotations));
@@ -69,17 +80,20 @@ app.controller("jsonPathController", function ($scope) {
     }
   });
 
-
+  // Function to run the json path against the input json object
   $scope.evaluateJSONPath = function evaluateJSONPath() {
-    const input = JSON.parse(editorInputJSONPath.session.getValue());
-    const jsonP = $scope.jsonP;
-    const result = JSONPath.JSONPath({
-      path: jsonP,
-      json: input
-    });
-    editorOutputJSONPath.setValue(JSON.stringify(result, null, 1), -1);
+    if ($scope.jsonP) {
+      let input = JSON.parse(editorInputJSONPath.session.getValue());
+      let jsonP = $scope.jsonP;
+      let result = JSONPath.JSONPath({
+        path: jsonP,
+        json: input
+      });
+      editorOutputJSONPath.setValue(JSON.stringify(result, null, 1), -1);
+    }
   }
 
+  // Function to save json paths, their input, and their output in the current session
   $scope.savePath = function savePath() {
     if ($scope.jsonP) {
       $scope.savedPaths.push({
@@ -90,6 +104,7 @@ app.controller("jsonPathController", function ($scope) {
     }
   }
 
+  // Change the auto run option
   $scope.setAutoRun = function setAutoRun() {
     if ($scope.autoRunLStatus === 'Off') {
       $scope.autoRunLStatus = 'On';
@@ -102,33 +117,38 @@ app.controller("jsonPathController", function ($scope) {
     }
   }
 
+  // Load the saved json path from the session along with the orignal input and output
   $scope.loadSavedPath = function loadSavedPath(p, i, o) {
     $scope.jsonP = p;
     editorInputJSONPath.setValue(i, -1);
     editorOutputJSONPath.setValue(o, -1);
   }
 
+  // Use the output as an input
   $scope.switchOutputInput = function switchOutputInput() {
     editorInputJSONPath.setValue(editorOutputJSONPath.session.getValue());
     editorOutputJSONPath.setValue('{}');
   }
 });
 
+// A controller to handle generating a json schema and validating an object against schema
 app.controller("jsonSchemaController", function ($scope) {
+  // Store schema validation error
   $scope.jsonSchemaErrors = [];
 
-  // Editor settings
+  // Editor settings - Input json object
   var editorInputJSONObject = ace.edit("editorInputJSONObject");
   editorInputJSONObject.setTheme("ace/theme/solarized_light");
   editorInputJSONObject.session.setMode("ace/mode/json");
   editorInputJSONObject.setFontSize(editorFontSize);
 
-  // Editor settings
+  // Editor settings - Input or output for json schema
   var editorInputJSONSchema = ace.edit("editorInputJSONSchema");
   editorInputJSONSchema.setTheme("ace/theme/solarized_light");
   editorInputJSONSchema.session.setMode("ace/mode/json");
   editorInputJSONSchema.setFontSize(editorFontSize);
 
+  // A function to validate a json object against a schema
   $scope.validateJSON = function validateJSON() {
     $scope.jsonSchemaErrors = [];
     let schema = JSON.parse(editorInputJSONSchema.session.getValue());
@@ -145,11 +165,13 @@ app.controller("jsonSchemaController", function ($scope) {
     }
   }
 
+  // Generate a json schema from a json object
   $scope.generateSchema = function generateSchema() {
     let obj = JSON.parse(editorInputJSONObject.session.getValue());
     editorInputJSONSchema.setValue(JSON.stringify(j2s(obj), null, 1), -1);
   }
 
+  // Download generated schema as a json file
   $scope.downloadSchema = function downloadSchema() {
     try {
       let schemaOutput = JSON.parse(editorInputJSONSchema.session.getValue());

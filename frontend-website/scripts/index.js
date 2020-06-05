@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 // Set font size for all editors
-var editorFontSize = 16;
+var editorFontSize = 14;
 
 /**
  * Download a file with date and json extension
